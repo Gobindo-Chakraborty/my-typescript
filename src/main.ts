@@ -1,81 +1,69 @@
-let stringArr = ["one", "two", "three"];
+// Type Aliases
 
-let guitars = ["strat", "Les Paul", 5150];
+type stringOrNumber = string | number;
 
-let mixedData = ["EVH", 1984, true];
+type stringOrNumberArray = (string | number)[]; // Array
+type anotherArray = [string, number]; // Array -> 2 values only
 
-stringArr[0] = "john";
-stringArr.push("hey");
-
-guitars[0] = 1984;
-guitars.unshift("Jim");
-
-guitars = stringArr;
-mixedData = guitars;
-
-let test = [];
-
-let bands: string[] = [];
-
-bands.push("Van Halen");
-
-// Tuple
-let myTuple: [string, number, boolean] = ["Dave", 42, true];
-
-let mixed = ["John", 1, false];
-
-myTuple[1] = 42;
-
-// Objects
-let myObj: object;
-myObj = [];
-console.log(typeof myObj);
-myObj = bands;
-myObj = {};
-
-const exampleObj = {
-  prop1: "Dave",
-  prop2: true,
-};
-
-exampleObj.prop2 = false;
-
-interface Guitarist {
+type Guitarist = {
   name?: string;
   active: boolean;
   albums: (string | number)[];
-}
-
-let evh: Guitarist = {
-  name: "Eddie",
-  active: false,
-  albums: [1984, 5150, "OU812"],
 };
 
-let jp: Guitarist = {
-  active: true,
-  albums: ["I", "II", "IV"],
+type UserId = stringOrNumber;
+
+// Literal types
+
+let myName: "Dave";
+
+let userName: "Dave" | "John" | "Amy";
+userName = "Amy";
+
+const add = (a: number, b: number): number => {
+  return a + b;
 };
 
-evh = jp;
+const logMsg = (message: any) => {
+  console.log(message);
+};
 
-const greetGuitarist = (guitarist: Guitarist) => {
-  if (guitarist.name) {
-    return `Hello ${guitarist.name.toUpperCase()}!`;
+logMsg("Hello!");
+logMsg(add(2, 3));
+
+let subtract = function (c: number, d: number): number {
+  return c - d;
+};
+
+type mathFunction = (a: number, b: number) => number;
+
+// interface mathFunction {
+//   (a: number, b: number): number;
+// }
+
+let multiply: mathFunction = function (c, d) {
+  return c * d;
+};
+
+logMsg(multiply(3, 3));
+
+// optional parameters
+const addAll = (a: number, b: number, c?: number): number => {
+  if (typeof c !== "undefined") {
+    return a + b + c;
   }
-  return "Hello!";
+  return a + b;
 };
 
-console.log(greetGuitarist(jp));
+const sumAll = (a: number = 2, b: number, c: number = 2): number => {
+  return a + b + c;
+};
 
-// Enums
+logMsg(addAll(2, 3, 2));
+logMsg(addAll(2, 3));
+logMsg(sumAll(2, 3));
 
-enum Grade {
-  U = 1,
-  D,
-  C,
-  B,
-  A,
-}
+console.log((<string | number>"true") as string);
 
-console.log(Grade.A);
+const btn = document.getElementById("#myBtn") as HTMLImageElement;
+const btn2 = document.querySelector("img") as HTMLImageElement;
